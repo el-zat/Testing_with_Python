@@ -3,7 +3,7 @@ from fixture.session import SessionHelper
 from fixture.contact_helper import ContactHelper
 
 
-class Application:
+class ApplicationContact:
     def __init__(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(30)
@@ -17,3 +17,4 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
+
