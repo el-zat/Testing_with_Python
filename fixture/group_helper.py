@@ -4,6 +4,11 @@ class GroupHelper:
     def __init__(self, app):
         self.app = app
 
+    def open_groups_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/groups.php") and len(wd.find_elements_by_name("new"))) > 0:
+            wd.find_element_by_link_text("groups").click()
+
     def return_to_groups_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
@@ -27,10 +32,6 @@ class GroupHelper:
         self.change_field_value("group_name", group.name)
         self.change_field_value("group_header", group.header)
         self.change_field_value("group_footer", group.footer)
-
-    def open_groups_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("groups").click()
 
     def delete_first_group(self):
         wd = self.app.wd
