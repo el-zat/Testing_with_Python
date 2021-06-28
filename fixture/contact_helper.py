@@ -41,6 +41,7 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
         self.go_to_home_page()
 
     def modify_first_contact(self, new_contact_data):
@@ -49,6 +50,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//img[@title='Edit']").click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
+        wd.find_element_by_css_selector("div.msgbox")
         self.go_to_home_page()
 
     def count(self):
@@ -59,9 +61,10 @@ class ContactHelper:
         wd = self.app.wd
         self.go_to_home_page()
         contacts = []
-        for element in wd.find_elements_by_css_selector("td.center [name='selected[]']"):
-            id = element.get_attribute("value")
-
-            contacts.append(Contact(id=id))
+        for element in wd.find_elements_by_name("entry"):
+            firstname = element.find_element_by_css_selector("td:nth-child(3)").text
+            lastname = element.find_element_by_css_selector("td:nth-child(2)").text
+            email = element.find_element_by_name("selected[]").get_attribute("accept")
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(id=id, firstname=firstname, lastname=lastname, nickname='', company='', email=email))
         return contacts
-
