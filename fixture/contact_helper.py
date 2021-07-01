@@ -2,7 +2,7 @@
 
 from model.contact import Contact
 import re
-import time
+
 
 
 class ContactHelper:
@@ -19,13 +19,9 @@ class ContactHelper:
         wd = self.app.wd
         self.go_to_home_page()
         self.open_add_new_contact()
-        time.sleep(2)
         self.fill_contact_form(contact)
-        time.sleep(2)
         wd.find_element_by_name("submit").click()
-        time.sleep(2)
         self.go_to_home_page()
-        time.sleep(2)
         self.contact_cache = None
 
     def change_field_value(self, field_name, text):
@@ -38,8 +34,6 @@ class ContactHelper:
     def fill_contact_form(self, contact):
         self.change_field_value("firstname", contact.firstname)
         self.change_field_value("lastname", contact.lastname)
-        # self.change_field_value("nickname", contact.nickname)
-        # self.change_field_value("company", contact.company)
         self.change_field_value("email", contact.email)
         self.change_field_value("email2", contact.email2)
         self.change_field_value("email3", contact.email3)
@@ -103,11 +97,12 @@ class ContactHelper:
                 cells = row.find_elements_by_tag_name("td")
                 firstname = cells[2].text
                 lastname = cells[1].text
-                email = cells[4].text
+                all_emails = cells[4].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 all_phones = cells[5].text
                 address = cells[3].text
-                self.contact_cache.append(Contact(id=id, firstname=firstname, lastname=lastname, email=email,
+                self.contact_cache.append(Contact(id=id, firstname=firstname, lastname=lastname,
+                                                  all_emails_from_home_page=all_emails,
                                                   all_phones_from_home_page=all_phones, address=address))
         return list(self.contact_cache)
 
@@ -131,12 +126,15 @@ class ContactHelper:
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
         homephone = wd.find_element_by_name("home").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         workphone = wd.find_element_by_name("work").get_attribute("value")
         address = wd.find_element_by_name("address").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, id=id, email=email, homephone=homephone,
+        return Contact(firstname=firstname, lastname=lastname, id=id, email=email,
+                       email2=email2, email3 = email3, homephone=homephone,
                        mobilephone=mobilephone, workphone=workphone, address=address)
 
     def get_contact_info_from_view_page(self, index):
