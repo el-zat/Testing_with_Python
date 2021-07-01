@@ -2,6 +2,7 @@
 
 from model.contact import Contact
 import re
+import time
 
 
 class ContactHelper:
@@ -20,6 +21,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_name("submit").click()
         self.go_to_home_page()
+        time.sleep(1)
         self.contact_cache = None
 
     def change_field_value(self, field_name, text):
@@ -46,25 +48,36 @@ class ContactHelper:
 
     def delete_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
+        self.go_to_home_page()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         wd.find_element_by_css_selector("div.msgbox")
         self.go_to_home_page()
         self.contact_cache = None
 
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        self.go_to_home_page()
+        wd.find_elements_by_name("selected[]")[index].click()
+
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
 
     def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
-        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        self.go_to_home_page()
+        self.select_edit_contact_by_index(index)
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         wd.find_element_by_css_selector("div.msgbox")
         self.go_to_home_page()
         self.contact_cache = None
+
+    def select_edit_contact_by_index(self, index):
+        wd = self.app.wd
+        self.go_to_home_page()
+        wd.find_elements_by_xpath("(//img[@alt='Edit'])")[index].click()
 
     def modify_first_contact(self):
         self.modify_contact_by_index(0)
