@@ -17,11 +17,15 @@ class ContactHelper:
 
     def create_new_contact(self, contact):
         wd = self.app.wd
-        self.open_add_new_contact()
-        self.fill_contact_form(contact)
-        wd.find_element_by_name("submit").click()
         self.go_to_home_page()
-        time.sleep(1)
+        self.open_add_new_contact()
+        time.sleep(2)
+        self.fill_contact_form(contact)
+        time.sleep(2)
+        wd.find_element_by_name("submit").click()
+        time.sleep(2)
+        self.go_to_home_page()
+        time.sleep(2)
         self.contact_cache = None
 
     def change_field_value(self, field_name, text):
@@ -34,9 +38,11 @@ class ContactHelper:
     def fill_contact_form(self, contact):
         self.change_field_value("firstname", contact.firstname)
         self.change_field_value("lastname", contact.lastname)
-        self.change_field_value("nickname", contact.nickname)
-        self.change_field_value("company", contact.company)
+        # self.change_field_value("nickname", contact.nickname)
+        # self.change_field_value("company", contact.company)
         self.change_field_value("email", contact.email)
+        self.change_field_value("email2", contact.email2)
+        self.change_field_value("email3", contact.email3)
         self.change_field_value("home", contact.homephone)
         self.change_field_value("mobile", contact.mobilephone)
         self.change_field_value("work", contact.workphone)
