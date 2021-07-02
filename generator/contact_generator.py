@@ -23,30 +23,23 @@ for o, a in opts:
         f = a
 
 
-def random_string(maxlen):
+def random_string(prefix, maxlen):
     symbols = string.ascii_letters + string.digits
-    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
 def random_number(maxlen):
     numbers = string.digits
-    return [random.choice(numbers) for j in range(random.randrange(maxlen))]
+    return "".join(random.choice(numbers) for j in range(random.randrange(maxlen)))
 
 
-testdata = [
-            Contact(firstname="firstname", lastname="lastname", email="email", email2="email2", email3="email3",
-            homephone="homephone", mobilephone="mobilephone", workphone="workphone", address="address", phone2="phone2")
-            for firstname in ["", random_string(10)]
-            for lastname in ["", random_string(10)]
-            for email in ["", random_string(10)]
-            for email2 in ["", random_string(10)]
-            for email3 in ["", random_string(10)]
-            for homephone in ["", random_number(10)]
-            for mobilephone in ["", random_number(10)]
-            for workphone in ["", random_number(10)]
-            for address in ["", random_string(10)]
-            for phone2 in ["", random_number(10)]
-]
+testdata = [Contact(firstname="", lastname="", email="", email2="", email3="", homephone="", mobilephone="",
+                    workphone="", address="", phone2="")] + [Contact(firstname=random_string("firstname", 10),
+                    lastname=random_string("lastname", 20), email=random_string("email", 10),
+                     email2=random_string("email2", 10), email3=random_string("email3", 10),
+                    homephone=random_string("homephone", 5), mobilephone=random_string("mobilephone", 5),
+                    workphone=random_string("workphone", 10), address=random_string("address", 20),
+                    phone2=random_string("phone2", 10))]
 
 
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
