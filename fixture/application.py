@@ -14,7 +14,7 @@ class Application:
             self.wd = webdriver.Ie()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
-        self.wd.implicitly_wait(30)
+        self.wd.implicitly_wait(3)
         self.session = SessionHelper(self)
         self.group_helper = GroupHelper(self)
         self.contact_helper = ContactHelper(self)
@@ -33,8 +33,3 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
-
-
-
-
-
