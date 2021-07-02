@@ -1,4 +1,4 @@
-
+import re
 from random import randrange
 
 
@@ -18,7 +18,12 @@ def random(app):
     return index
 
 
+def clean(s):
+    return re.sub('\s+', ' ', s.strip())
+
+
 def merge_emails_like_on_home_page(contact_helper):
-     return "\n".join(filter(lambda x: x!= "", filter(lambda x: x is not None, (contact_helper.email,
+     return "\n".join(filter(lambda x: x!= "", map(lambda x: clean(x),
+                                                  filter(lambda x: x is not None, [contact_helper.email,
                                                                                 contact_helper.email2,
-                                                                                contact_helper.email3))))
+                                                                                contact_helper.email3]))))

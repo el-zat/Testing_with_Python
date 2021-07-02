@@ -25,12 +25,12 @@ def random(app):
     return index
 
 
-def clear(s):
+def clean(s):
     return re.sub("[() -]", "", s)
 
 
 def merge_phones_like_on_home_page(contact_helper):
-    return "\n".join(filter(lambda x: x!= "", map(lambda x: clear(x),
+    return "\n".join(filter(lambda x: x!= "", map(lambda x: clean(x),
                                                   filter(lambda x: x is not None, (contact_helper.homephone,
                                                          contact_helper.mobilephone, contact_helper.workphone,
                                                                                    contact_helper.phone2)))))
