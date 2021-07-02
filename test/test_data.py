@@ -1,4 +1,4 @@
-import re
+
 from random import randrange
 
 
@@ -12,21 +12,13 @@ def test_data_on_home_page(app):
     assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(contact_from_edit_page)
 
 
-def clear(s):
-    return re.sub("[ ]", "", s)
-
-
 def random(app):
     contacts = app.contact_helper.get_contact_list()
     index = randrange(len(contacts))
     return index
 
 
-def clear(s):
-    return re.sub("[() -]", "", s)
-
-
 def merge_emails_like_on_home_page(contact_helper):
-    return "\n".join(filter(lambda x: x!= "", map(lambda x: clear(x),
-                                                  filter(lambda x: x is not None, (contact_helper.email,
-                                                         contact_helper.email2, contact_helper.email3)))))
+     return "\n".join(filter(lambda x: x!= "", filter(lambda x: x is not None, (contact_helper.email,
+                                                                                contact_helper.email2,
+                                                                                contact_helper.email3))))
