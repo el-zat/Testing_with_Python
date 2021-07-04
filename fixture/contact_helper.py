@@ -41,6 +41,7 @@ class ContactHelper:
         self.change_field_value("mobile", contact.mobilephone)
         self.change_field_value("work", contact.workphone)
         self.change_field_value("address", contact.address)
+        self.change_field_value("phone2", contact.phone2)
 
     def open_add_new_contact(self):
         wd = self.app.wd
@@ -134,9 +135,10 @@ class ContactHelper:
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         workphone = wd.find_element_by_name("work").get_attribute("value")
         address = wd.find_element_by_name("address").get_attribute("value")
+        phone2 = wd.find_element_by_name("phone2").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, email=email,
                        email2=email2, email3 = email3, homephone=homephone,
-                       mobilephone=mobilephone, workphone=workphone, address=address)
+                       mobilephone=mobilephone, workphone=workphone, address=address, phone2=phone2)
 
     def get_contact_info_from_view_page(self, index):
         wd = self.app.wd
@@ -145,5 +147,6 @@ class ContactHelper:
         homephone = re.search("H: (.*)", text).group(1)
         mobilephone = re.search("M: (.*)", text).group(1)
         workphone = re.search("W: (.*)", text).group(1)
+        phone2 = re.search("P: (.*)", text).group(1)
         return Contact(id=id, homephone=homephone, mobilephone=mobilephone,
-                       workphone=workphone)
+                       workphone=workphone, phone2=phone2)
