@@ -10,7 +10,7 @@ fixture = None
 target = None
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def app(request):
     global fixture
     global target
