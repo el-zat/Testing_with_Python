@@ -34,7 +34,7 @@ class DbFixture:
         cursor = self.connection.cursor()
         try:
             cursor.execute("select id, firstname, lastname, nickname, company, address ,home, mobile, work, "
-                           "email,email2, email3, phone2 from addressbook")
+                           "email,email2, email3, phone2 from addressbook where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
                 (id, firstname, lastname, nickname, company, email, address, homephone, mobilephone, workphone,
                  email2, email3, phone2) = row
@@ -45,3 +45,4 @@ class DbFixture:
         finally:
             cursor.close()
         return list
+
