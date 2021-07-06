@@ -1,8 +1,7 @@
-
-
+from selenium.webdriver.support.select import Select
 from model.contact import Contact
 import re
-
+import time
 
 
 class ContactHelper:
@@ -23,6 +22,18 @@ class ContactHelper:
         wd.find_element_by_name("submit").click()
         self.go_to_home_page()
         self.contact_cache = None
+
+    def add_contact_into_group(self, id, group_id):
+        wd = self.app.wd
+        self.go_to_home_page()
+        self.select_contact_by_id(id)
+        time.sleep(3)
+        self.select_group_by_id(group_id)
+        time.sleep(3)
+        wd.find_element_by_xpath("//input[@value='Add to']").click()
+        time.sleep(3)
+        # self.go_to_home_page()
+
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -61,6 +72,11 @@ class ContactHelper:
         wd = self.app.wd
         self.go_to_home_page()
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_group_by_id(self, group_id):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//select[@name='to_group']").click()
+        wd.find_element_by_css_selector("select[name='to_group'] option[value='%s']" % group_id).click()
 
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
