@@ -150,3 +150,17 @@ class ContactHelper:
         phone2 = re.search("P: (.*)", text).group(1)
         return Contact(id=id, homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone, phone2=phone2)
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.go_to_home_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.go_to_home_page()
+        self.contact_cache = None
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[id='%s']" % id).click()

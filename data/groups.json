@@ -1,0 +1,58 @@
+[
+  {
+    "py/object": "model.group.Group",
+    "name": "",
+    "header": "",
+    "footer": "",
+    "id": null
+  },
+  {
+    "py/object": "model.group.Group",
+    "name": "",
+    "header": "",
+    "footer": "footerbuyx",
+    "id": null
+  },
+  {
+    "py/object": "model.group.Group",
+    "name": "",
+    "header": "header7C7",
+    "footer": "",
+    "id": null
+  },
+  {
+    "py/object": "model.group.Group",
+    "name": "",
+    "header": "header7C7",
+    "footer": "footerPsszJ",
+    "id": null
+  },
+  {
+    "py/object": "model.group.Group",
+    "name": "name",
+    "header": "",
+    "footer": "",
+    "id": null
+  },
+  {
+    "py/object": "model.group.Group",
+    "name": "name",
+    "header": "",
+    "footer": "footer",
+    "id": null
+  },
+  {
+    "py/object": "model.group.Group",
+    "name": "name",
+    "header": "header",
+    "footer": "",
+    "id": null
+  },
+  {
+    "py/object": "model.group.Group",
+    "name": "name",
+    "header": "header",
+    "footer": "footerm09z",
+    "id": null
+  }
+]
