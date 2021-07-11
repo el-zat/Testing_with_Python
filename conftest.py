@@ -21,7 +21,7 @@ def load_config(file):
     return target
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def app(request):
     global fixture
     browser = request.config.getoption("--browser")
