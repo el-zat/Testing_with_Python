@@ -23,16 +23,28 @@ class ContactHelper:
         self.go_to_home_page()
         self.contact_cache = None
 
-    def add_contact_into_group(self, id, group_id):
+    def add_contact_into_group(self, id, gr_id):
         wd = self.app.wd
         self.go_to_home_page()
         self.select_contact_by_id(id)
         time.sleep(3)
-        self.select_group_by_id(group_id)
+        self.select_group_by_id(gr_id)
         time.sleep(3)
         wd.find_element_by_xpath("//input[@value='Add to']").click()
-        time.sleep(3)
+        wd.find_element_by_css_selector("div.msgbox i").click()
         # self.go_to_home_page()
+
+    def remove_contact_from_group(self, contact, group):
+        wd = self.app.wd
+        self.go_to_home_page()
+        self.select_group_by_id(group.id)
+        self.select_contact_by_id(contact.id)
+        wd.find_element_by_xpath("//input[@name='remove']").click()
+
+    def select_group(self, gr_id):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//select[@name='group']").click()
+        wd.find_element_by_xpath("//option[@value='%s']" % gr_id).click()
 
 
     def change_field_value(self, field_name, text):
@@ -186,7 +198,9 @@ class ContactHelper:
         id = int(id)
         self.go_to_home_page()
         self.select_edit_contact_by_id(id)
+        time.sleep(3)
         self.fill_contact_form(new_contact_data)
+        time.sleep(3)
         wd.find_element_by_name("update").click()
         wd.find_element_by_css_selector("div.msgbox")
         self.go_to_home_page()
