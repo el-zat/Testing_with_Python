@@ -23,22 +23,23 @@ class ContactHelper:
         self.go_to_home_page()
         self.contact_cache = None
 
-    def add_contact_into_group(self, id, gr_id):
+    def add_contact_into_group(self, id, group_id):
         wd = self.app.wd
         self.go_to_home_page()
         self.select_contact_by_id(id)
         time.sleep(3)
-        self.select_group_by_id(gr_id)
+        self.select_group_by_id(group_id)
         time.sleep(3)
         wd.find_element_by_xpath("//input[@value='Add to']").click()
-        wd.find_element_by_css_selector("div.msgbox i").click()
         # self.go_to_home_page()
 
-    def remove_contact_from_group(self, contact, group):
+    def remove_contact_from_group(self, id, gr_id):
         wd = self.app.wd
         self.go_to_home_page()
-        self.select_group_by_id(group.id)
-        self.select_contact_by_id(contact.id)
+        self.select_group(gr_id)
+        time.sleep(3)
+        self.select_contact_by_id(id)
+        time.sleep(3)
         wd.find_element_by_xpath("//input[@name='remove']").click()
 
     def select_group(self, gr_id):
