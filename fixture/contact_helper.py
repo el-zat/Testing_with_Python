@@ -37,10 +37,8 @@ class ContactHelper:
         wd = self.app.wd
         self.go_to_home_page()
         self.select_group(gr_id)
-        time.sleep(3)
         self.select_contact_by_id(id)
-        time.sleep(3)
-        wd.find_element_by_xpath("//input[@name='remove']").click()
+        wd.find_element_by_xpath("//*[@name='remove']").click()
 
     def select_group(self, gr_id):
         wd = self.app.wd

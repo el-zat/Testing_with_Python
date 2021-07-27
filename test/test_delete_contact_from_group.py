@@ -18,22 +18,20 @@ def test_delete_contact_from_group(app):
     new_group_list = db.get_group_list()
     new_contact_list = db.get_contact_list()
     group = random.choice(new_group_list)
-    old_contacts_in_group = db.get_contacts_in_group(group=group)
-    old_contacts_not_in_group = db.get_contacts_not_in_group(group=group)
+    old_contacts_in_group = db.get_contacts_in_group(Group(id=group.id))
 
     if len(old_contacts_in_group) == 0:
         contact = random.choice(new_contact_list)
         app.contact_helper.add_contact_into_group(id=contact.id, group_id=group.id)
+    old_contacts_in_group = db.get_contacts_in_group(Group(id=group.id))
+    old_contacts_not_in_group = db.get_contacts_not_in_group(Group(id=group.id))
 
-    contact = random.choice(old_contacts_in_group)
-
-    contact_in_group = db.get_contacts_in_group(Group(id=group.id))
-    contact_del = random.choice(contact_in_group)
+    contact_del = random.choice(old_contacts_in_group)
     app.contact_helper.remove_contact_from_group(id=contact_del.id, gr_id=group.id)
-    new_contacts_in_group = db.get_contacts_in_group(group=group)
-    new_contacts_not_in_group = db.get_contacts_not_in_group(group=group)
+    new_contacts_in_group = db.get_contacts_in_group(Group(id=group.id))
+    new_contacts_not_in_group = db.get_contacts_not_in_group(Group(id=group.id))
 
     assert len(old_contacts_in_group) - 1 == len(new_contacts_in_group)
     assert len(old_contacts_not_in_group) + 1 == len(new_contacts_not_in_group)
-    old_contacts_in_group.remove(contact)
+    old_contacts_in_group.remove(contact_del)
     assert sorted(old_contacts_in_group, key=Contact.id_or_max) == sorted(new_contacts_in_group, key=Contact.id_or_max)
