@@ -1,4 +1,3 @@
-import random
 
 from model.group import Group
 import random
@@ -16,4 +15,5 @@ def test_delete_some_group(app, db, check_ui):
     assert old_groups == new_groups
     if check_ui:
         assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group_helper.get_group_list(), key=Group.id_or_max)
+
 

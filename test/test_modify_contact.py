@@ -13,6 +13,5 @@ def test_modify_some_contact(app, db, check_ui):
     new_contacts = db.get_contact_list()
     assert len(old_contacts) == app.contact_helper.count()
     if check_ui:
-        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact_helper.get_contact_list(),
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contacts_list(),
                                                                      key=Contact.id_or_max)
-
