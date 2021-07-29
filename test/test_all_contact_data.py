@@ -19,14 +19,12 @@ def clean(s):
     return re.sub("[() -]", "", s)
 
 
-def merge_emails_like_on_home_page(contact_helper):
-     return "\n".join(filter(lambda x: x!= "", map(lambda x: clean(x),
-                                                  filter(lambda x: x is not None, [contact_helper.email,
-                                                                                contact_helper.email2,
-                                                                                contact_helper.email3]))))
+def merge_emails_like_on_home_page(contact):
+    return "\n".join(filter(lambda x: x != "", [contact.email, contact.email2, contact.email3]))
 
-def merge_phones_like_on_home_page(contact_helper):
-    return "\n".join(filter(lambda x: x!= "", map(lambda x: clean(x),
-                                                  filter(lambda x: x is not None, (contact_helper.homephone,
-                                                         contact_helper.mobilephone, contact_helper.workphone,
-                                                                                   contact_helper.phone2)))))
+
+def merge_phones_like_on_home_page(contact):
+    return "\n".join(filter(lambda x: x != "",
+                            map(lambda x: clean(x),
+                                filter(lambda x: x is not None,
+                                       [contact.homephone, contact.mobilephone, contact.workphone, contact.phone2]))))
